@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  // "compilerOptions": {
+  //   "baseUrl": "./",
+  //   "paths": {
+  //     "@/*": ["src/*"] // 与Vite保持逻辑一致，TypeScript会基于baseUrl解析
+  //   }
+  // }
+}

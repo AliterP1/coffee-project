@@ -1,0 +1,9 @@
+package com.example.mycoffeedemo.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.mycoffeedemo.entity.Review;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface ReviewMapper extends BaseMapper<Review> {
+}

@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: my-coffee-demo
+  datasource:
+    url: jdbc:mysql://localhost:3306/coffee?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 520814
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 50MB
+
+server:
+  port: 8081
+
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.example.labmanager.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# JWT配置
+jwt:
+  secret: labEquipmentManagementSecretKeyWithLongerLength123456789012345
+  expiration: 86400000 # 24小时
+
+logging:
+  level:
+    root: info
+    com.example: debug
+
+alipay:
+  easy:
+    protocol: https
+    gatewayHost: openapi-sandbox.dl.alipaydev.com
+    signType: RSA2
+    appId: 9021000154670979
+    merchantPrivateKey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCOg7xOptoGNBPOvQ/Fh0inoGUbBNYm4rCvHpsBD99AOXK4JX5EtPjESRWFf3CTtPASJ+ISgC3ewy9PCIk7SkXLnfjOQZtneTq415o7LrcSwRdIEowbq1dX7eZ4YhQzO17BYP0+HxYf41Ky6pNCm4TCh+k97WhOm8KOT5zlKk6YEb+YAvBMF5yej+ESnmKvCA3tiPHeWv98CtSQ3PRq5kx9mBPsznncxAh0wcPdavFXagzinw3bA7hT0c4jU487Vm2MH40cVcqBXL6kv5iXv6gZiWmoOTWtGZxETqNJOeiKr+SjFG6iwvTC37EUwsOhhQod+4Y0czQq8KcTwEx7zjczAgMBAAECggEAJaaD/ztxaiYj/YBRRFwjQ7XKQEMc2JUXHIy3YqZw0qTau++b1kcBWcn9F5G9iihJLGLBBSY7+BgUzYpxxuouWkbXzpXimomai+7Z3jzPPPMqVW4g+cZgguhk9PTkZUyQEgKvpNPNoosJ9B6o3PX9Mu95HVU1M19PHQ3HY3uz29SfRqk+l1P7MeUxteUhMZA3yLlVy4ZM6Zbg1KCwpuAZ0D/lzznf465l6M3PBTVnhwuEcp4x9axEcFRW1JdpIUXxRmgqNJ1PETgiYcJW0kQgbEZ1C94FTh2jdpJm6fknpZ3frEbu7thFYgtmb93cvpTMPoOfMNwvfqKTHkqRmEOoEQKBgQDPcJyE1wHN/pJVLNh1qRQrDIzGcALWAtM0SsR7J3scwYvik6q1UuI0Op5RhjDj2p8zf15LTP6hvSRnKmAXvLoHcCy2oME+F/pi/7jWCfsDYvo8beonoMwBSDFq0XCygRpsakQRY/ouYdAZs1p2SmEhV5WFo1YyK7WwRX/5Q+fAjwKBgQCv4E149opeunsNszkewI6krRmlC7FQPkjUl87/0eH+jVQ6WdMUkMSeVIU2YmYDuOVLJaVpoqhKmI70wPf+zatLdct/rdRPKVCP1v3SIQUZVkL7KJRpgrF5cpvh90R4cYjaZZsPAKMJ07KkIvpJjHbf4lhu65x0mpFvRFWtZiGpHQKBgHu08XJ68jWRilzHKLNKSJ+/lThF1jsgZim6KOA01EN63NwbKeOGcSWqi32cpA1N9ED2xRns6bE0pb/sUm/1eY80A0ZKKdPI4uYlEGp8ezgyz344IjrNtrtQ/T9xdV7OhR6AZOVmFO2SIVMiVWFTzAbhP2b52E6FKI3ddIsHRu7bAoGAbnwH7x9hmVSojNiz31+zvDuJyqbnwrL96Z9cSFS/FbwO14EqGtc+zP/nl1yFHX1/fY+utAeclQ/1bkfzAryNCSB8sD6xCvG3TEUQunpHy7zm4wSBBy808khPKMq+1rLr99awa+JIiZnVtUrL1HxLCSYVy8hzRsT6690PvZhVOPkCgYA/7B0TazG32Me83pmIdJFjUdQ8ZgG/MUTGrBIc5hCQfGLnFGjVJelL2RfLrtPHiRFYMj/cmMWhTzUeNxlK/VFjh0VhisVjY9CqTKwh+lWkXDtBtdu2uuEOLSUGEqTLfTDFSIRYAQuHnXP+T18D45BlCwNrGL0wiGDsHGwJDPYXnw==
+    alipayPubLicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhrX6orrliwKdRXwEm9LYWGLL5Ra4j/BcxSvEaveIITLsYdOZ8FfSkD6A3YZdcTyBhtohhENVnVi9FiERRzGtrb3k2LX/G0KlPbm89BWmg9GV8pBjwR9+tRW4qFSz7FjgIBRM2Vnrqr7iliO1MGrT/mnoEmtQNptnJzY5s72qBvCH6d2sOwaUHQUVqU2X0XUkahrrePn9ALb0Xp9sWeYKqwP1Y+aOmzTRmMZ7Dp+sv7zEdp0qqZYaAilaIodgZAF1IRmPmrx1i4tS5WUBG0/3gV8gknr4Qu6iXogySPwYWDBnC2suFmrS2ohOESBtmeRaMa1hRplZFLKjp6gKxqhFhwIDAQAB
+    notifyUrl: https://yuanshen.store/notify
+
+

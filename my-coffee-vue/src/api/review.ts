@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { getPage } from '@/api/page'
+import { getPage,type ApiResponse } from '@/api/page'
 
 export interface ReviewRequestDTO {
   userId: number
@@ -32,7 +32,7 @@ export const uploadReviewImages = (id: number, files: File[]) => {
 
 // 添加评价
 export const addReview = (data: ReviewRequestDTO) =>
-  request.post<ReviewResponseDTO>('/review/addReview', data)
+  request.post<ApiResponse<ReviewResponseDTO>>('/review/addReview', data)
 
 // 获取商品评价分页
 export const getProductReviews = (productId: number, page = 1, size = 10) =>

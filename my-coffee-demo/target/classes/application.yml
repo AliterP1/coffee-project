@@ -13,6 +13,12 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 50MB
+  data:
+    redis:
+      database: 0
+      host: 8.130.85.165
+      port: 6379
+      password: 520814
 
 server:
   port: 8081
@@ -21,7 +27,7 @@ server:
 # MyBatis-Plus配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: com.example.labmanager.entity
+  type-aliases-package: com.example.mycoffeedemo.entity
   global-config:
     db-config:
       id-type: auto

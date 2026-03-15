@@ -26,6 +26,8 @@ public class ProductController {
         return productService.getProductPage(page,size);
     }
 
+
+    // 商家查询商品
     @GetMapping("/userId")
     public Result<IPage<ProductResponseDTO>> getUserIdProductPage(@RequestParam(defaultValue = "1") Long page,
                                                                   @RequestParam(defaultValue = "10") Long size,

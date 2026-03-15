@@ -31,4 +31,9 @@ public class EasyPayController {
         System.out.println("收到支付成功开始修改数据库数据");
         return  orderService.getNotify(request);
     }
+
+    @PostMapping("/paid")
+    public Result<String> paid(@RequestParam("orderId") String orderId)  {
+        return orderService.getPaid(orderId);
+    }
 }

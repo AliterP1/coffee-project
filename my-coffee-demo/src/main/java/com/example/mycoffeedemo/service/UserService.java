@@ -1,6 +1,8 @@
 package com.example.mycoffeedemo.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mycoffeedemo.dto.OrderResponseDTO;
 import com.example.mycoffeedemo.dto.UserRequestDTO;
 import com.example.mycoffeedemo.dto.UserResponseDTO;
 import com.example.mycoffeedemo.entity.User;
@@ -20,4 +22,16 @@ public interface UserService extends IService<User> {
     Result<String> updateAvatar(Long id, MultipartFile file);
 
     Result<UserResponseDTO> getUserId(String id, HttpServletRequest request);
+
+    Result<IPage<UserResponseDTO>> getAllUser(int page, int size);
+
+    Result<UserResponseDTO> updateUser(Long id, UserRequestDTO dto);
+
+    Result<String> resetPassword(Long userId);
+
+    Result<UserResponseDTO> addUser(UserRequestDTO dto);
+
+    Result<String> codePhone(String phone);
+
+    Result<UserResponseDTO> phoneLogin(String phone,String code);
 }

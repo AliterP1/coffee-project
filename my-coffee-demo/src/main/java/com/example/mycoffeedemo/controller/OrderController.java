@@ -9,6 +9,8 @@ import com.example.mycoffeedemo.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("order")
 public class OrderController {
@@ -36,6 +38,29 @@ public class OrderController {
     @PostMapping("details")
     public Result<OrderResponseDTO> getOrderDetails(@RequestParam Long orderId){
         return orderService.getOrderDetails(orderId);
+    }
+
+    @PostMapping("merchantOrder")
+    public Result<IPage<OrderResponseDTO>> getMerchantOrder(@RequestParam(defaultValue = "1") Long page,
+                                                            @RequestParam(defaultValue = "10") Long size,
+                                                            @RequestParam Long userId){
+        return  orderService.getMerchantOrder(page,size,userId);
+    }
+
+    @PostMapping("allOrder")
+    public Result<IPage<OrderResponseDTO>> getAllOrder(@RequestParam(defaultValue = "1") Long page,
+                                                       @RequestParam(defaultValue = "10") Long size){
+        return  orderService.getAllOrder(page,size);
+    }
+
+    /**
+     * 商家发货接口
+     * @param merchantOrderId 子订单ID
+     * @return Result
+     */
+    @PostMapping("/{merchantOrderId}/ship")
+    public Result<String> shipOrder(@PathVariable Long merchantOrderId) {
+        return orderService.ship(merchantOrderId);
     }
 }
 

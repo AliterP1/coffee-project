@@ -31,4 +31,12 @@ public interface OrderService extends IService<Order> {
     Result<IPage<OrderResponseDTO>> getUserOrders(Long page,Long size,Long userId);
 
     Result<OrderResponseDTO> getOrderDetails(Long orderId);
+
+    Result<IPage<OrderResponseDTO>> getAllOrder(Long page,Long size);
+
+    Result<String> getPaid(String orderId);
+
+    Result<IPage<OrderResponseDTO>> getMerchantOrder(Long page, Long size, Long userId);
+
+    Result<String> ship(Long merchantOrderId);
 }

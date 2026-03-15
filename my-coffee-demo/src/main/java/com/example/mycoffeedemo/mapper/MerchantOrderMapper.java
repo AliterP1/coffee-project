@@ -1,4 +1,9 @@
 package com.example.mycoffeedemo.mapper;
 
-public class MerchantOrderMapper {
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.mycoffeedemo.entity.MerchantOrder;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface MerchantOrderMapper extends BaseMapper<MerchantOrder> {
 }

@@ -243,7 +243,7 @@ const handleClose = () => {
   text-align: center;
   padding: 40px 20px;
   height: 150px;
-  background-image: url("@/assets/coffeeImage/coffee-5082544_1920.jpg");
+  background-image: url("@/assets/coffeeImage/pexels-coffee-1869647_1920.jpg");
   background-size: cover;
   background-position: center;
   color: white;

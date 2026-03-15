@@ -1,5 +1,6 @@
 package com.example.mycoffeedemo.service.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -40,18 +41,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>imple
     @Override
     public Result<IPage<ProductResponseDTO>> getProductPage(Long page, Long size) {
         Page<Product> pageParam = new Page<>(page, size);
-        IPage<Product> productPage = productMapper.selectPage(pageParam, new QueryWrapper<>());
+        IPage<Product> productPage = productMapper.selectPage(pageParam, new LambdaQueryWrapper<Product>()
+                .ne(Product::getIsActive,0));
 
         IPage<ProductResponseDTO> dtoPage = productPage.convert(product -> {
             ProductResponseDTO dto = new ProductResponseDTO();
             BeanUtils.copyProperties(product, dto);
-            // 将 String JSON 转为 List<String>
             if (product.getImages() != null) {
-                dto.setImages(Arrays.stream(product.getImages()
-                        .replace("[","")
-                        .replace("]","")
-                        .replace("\"","")
-                        .split(",")).map(String::trim).collect(Collectors.toList()));
+                dto.setImages(product.getImages());
                 }
             return dto;
         });
@@ -65,13 +62,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>imple
         IPage<ProductResponseDTO> dtoPage=userProduct.convert(product -> {
             ProductResponseDTO dto = new ProductResponseDTO();
             BeanUtils.copyProperties(product, dto);
-            // 将 String JSON 转为 List<String>
             if (product.getImages() != null) {
-                dto.setImages(Arrays.stream(product.getImages()
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace("\"", "")
-                        .split(",")).map(String::trim).collect(Collectors.toList()));
+                dto.setImages(product.getImages());
             }
             return dto;
         });
@@ -148,11 +140,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>imple
             if (uploadResult.getCode() == 200) {
                 urls.add(uploadResult.getData());
             }else {
-                Result.fail("文件上传失败");
+                Result.fail("文件上传失败 ");
             }
         }
         Product product = productMapper.selectById(id);
-        product.setImages(new ObjectMapper().writeValueAsString(urls));
+        product.setImages(urls);
         productMapper.updateById(product);
         return Result.success("图片上传成功",urls);
     }

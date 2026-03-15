@@ -127,7 +127,14 @@ export default defineComponent({
     const onLogin = () => {
       const userStore = useUserStore();
       if (userStore.isLogin) {
-        window.location.href = "/account";
+        // 根据用户角色跳转到不同页面
+        if (userStore.userInfo?.role === 'admin') {
+          window.location.href = "/admin/dashboard";
+        } else if (userStore.userInfo?.role === 'merchant') {
+          window.location.href = "/merchant/dashboard";
+        } else {
+          window.location.href = "/account";
+        }
       } else {
         window.location.href = "/login";
       }

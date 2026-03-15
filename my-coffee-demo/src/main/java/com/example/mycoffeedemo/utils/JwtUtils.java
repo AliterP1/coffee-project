@@ -20,9 +20,6 @@ public class JwtUtils {
     @Value("${jwt.expiration}")
     private long expiration;
 
-
-
-
     private  SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
@@ -59,7 +56,6 @@ public class JwtUtils {
     }
     /**
      * 获取role的快捷方法
-     *
      * */
 
     public String getRoleFromToken(String token) {
@@ -68,7 +64,6 @@ public class JwtUtils {
 
     /**
      * 获取userId的快捷方法
-     *
      * */
     public  Long getUserIdFromToken(String token) {
         return Long.valueOf(parseClaims(token).get("userId").toString());
@@ -76,7 +71,6 @@ public class JwtUtils {
 
     /**
      * 获取Email的快捷方法
-     *
      * */
     public  String getEmailFromToken(String token) {
         return parseClaims(token).get("email",String.class).toString();

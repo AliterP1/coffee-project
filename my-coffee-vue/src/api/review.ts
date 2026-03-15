@@ -37,3 +37,7 @@ export const addReview = (data: ReviewRequestDTO) =>
 // 获取商品评价分页
 export const getProductReviews = (productId: number, page = 1, size = 10) =>
   getPage<ReviewResponseDTO[]>(`/review/product`, { productId, page, size })
+
+// 获取所有评价分页
+export const getReviewPage = (page = 1, size = 10) =>
+  getPage<ReviewResponseDTO>(`/review`, { page, size })

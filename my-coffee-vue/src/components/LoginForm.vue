@@ -128,9 +128,15 @@ const handleLogin = async () => {
   try {
     await userStore.login({
       email: loginForm.email,
-      password: loginForm.password,
+      password: loginForm.password
     })
-    router.push('/')
+    // 使用后端返回的角色判断
+    const role = userStore.userInfo?.role
+    if (role === 'admin') {
+      router.push('/admin/dashboard')
+    } else {
+      router.push('/')
+    }
   } catch (err: any) {
     alert(err.message || '登录失败，请检查邮箱和密码')
   } finally {

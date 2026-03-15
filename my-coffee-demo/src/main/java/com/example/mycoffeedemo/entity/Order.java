@@ -15,8 +15,8 @@ public class Order {
     private Long addressId;
     private BigDecimal totalPrice;
     private String status;             // pending/paid/shipped/completed/cancelled
+    private String image;
     private String TradeNo;
-    private String recipientName;
     private String phone;
     private String fullAddress;
 

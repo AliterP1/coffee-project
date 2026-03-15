@@ -34,7 +34,7 @@ public class ReviewController {
     @GetMapping("/product")
     public Result<IPage<ReviewResponseDTO>> getReview(@RequestParam(defaultValue = "1") Long page,
                                                       @RequestParam(defaultValue = "10") Long size,
-                                                      @RequestParam Long productId){
-        return reviewService.getReview(page,size,productId);
+                                                      @RequestParam Long productId) {
+        return reviewService.getReview(page, size, productId);
     }
 }

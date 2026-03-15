@@ -37,7 +37,7 @@ public class SearchResultDTO {
                 .setId(product.getId())
                 .setTitle(product.getName())
                 .setContent(product.getDescription())
-                .setImages(parseImageList(product.getImages()))
+                .setImages(product.getImages())
                 .setCreatedAt(product.getCreatedAt())
                 .setPrice(product.getPrice())
                 .setStock(product.getStock())
@@ -51,7 +51,7 @@ public class SearchResultDTO {
                 .setId(content.getId())
                 .setTitle(content.getTitle())
                 .setContent(content.getContent())
-                .setImages(parseImageList(content.getImages()))
+                .setImages(content.getImages())
                 .setCreatedAt(content.getCreatedAt())
                 .setType("CONTENT");
     }

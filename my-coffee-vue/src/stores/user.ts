@@ -61,7 +61,7 @@ export const useUserStore = defineStore('user', {
       try {
         const res = await apiLogin({
           email: data.email,
-          password: data.password,
+          password: data.password
         })
         
 

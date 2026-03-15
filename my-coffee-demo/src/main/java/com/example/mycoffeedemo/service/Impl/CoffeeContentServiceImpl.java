@@ -55,12 +55,7 @@ public class CoffeeContentServiceImpl extends ServiceImpl<CoffeeContentMapper, C
             BeanUtils.copyProperties(content, dto);
             // 将 JSON 字符串解析为 List<String>
             if (content.getImages() != null) {
-                dto.setImages(Arrays.stream(content.getImages()
-                        .replace("[","")
-                        .replace("]","")
-                        .replace("\"","")
-                        .split(","))
-                        .map(String::trim).collect(Collectors.toList()));
+                dto.setImages(content.getImages());
             }
             // 查作者名字
             if (content.getAuthorId() != null) {
@@ -87,7 +82,7 @@ public class CoffeeContentServiceImpl extends ServiceImpl<CoffeeContentMapper, C
             }
         }
         CoffeeContent content = coffeeContentMapper.selectById(id);
-        content.setImages(new ObjectMapper().writeValueAsString(urls));
+        content.setImages(urls);
         coffeeContentMapper.updateById(content);
         return Result.success("图片上传成功",urls);
     }
@@ -130,7 +125,7 @@ public class CoffeeContentServiceImpl extends ServiceImpl<CoffeeContentMapper, C
                         SearchResultDTO dto = SearchResultDTO.fromContent(c);
 
                         // 图片 JSON -> List<String>
-                        dto.setImages(parseImageList(c.getImages()));
+                        dto.setImages(c.getImages());
 
                         // 查找用户名
                         if (c.getAuthorId() != null) {
@@ -149,7 +144,7 @@ public class CoffeeContentServiceImpl extends ServiceImpl<CoffeeContentMapper, C
             List<SearchResultDTO> productDTOs = productList.stream()
                     .map(p -> {
                         SearchResultDTO dto = SearchResultDTO.fromProduct(p);
-                        dto.setImages(parseImageList(p.getImages()));
+                        dto.setImages(p.getImages());
                         return dto;
                     })
                     .collect(Collectors.toList());

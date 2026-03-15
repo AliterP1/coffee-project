@@ -54,7 +54,7 @@ public class ReviewServiceImpl extends ServiceImpl<ReviewMapper,Review> implemen
             }
         }
         Review review = reviewMapper.selectById(id);
-        review.setImages(new ObjectMapper().writeValueAsString(urls));
+        review.setImages(urls);
         reviewMapper.insert(review);
         return Result.success("图片上传成功",urls);
     }
@@ -96,10 +96,7 @@ public class ReviewServiceImpl extends ServiceImpl<ReviewMapper,Review> implemen
         // 4. 保存评论
         Review review = new Review();
         BeanUtils.copyProperties(dto,review);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String imagesJson = objectMapper.writeValueAsString(dto.getImages());
         review.setOrderId(orderId);
-        review.setImages(imagesJson);
         reviewMapper.insert(review);
         return Result.success("评论提交成功",null);
     }
@@ -113,14 +110,9 @@ public class ReviewServiceImpl extends ServiceImpl<ReviewMapper,Review> implemen
         IPage<ReviewResponseDTO> dtoPage=reviewPage.convert(review -> {
             ReviewResponseDTO reviewResponseDTO = new ReviewResponseDTO();
             BeanUtils.copyProperties(review,reviewResponseDTO);
-            // 将 JSON 字符串解析为 List<String>
+
             if (review.getImages() != null) {
-                reviewResponseDTO.setImages(Arrays.stream(review.getImages()
-                                .replace("[","")
-                                .replace("]","")
-                                .replace("\"","")
-                                .split(","))
-                        .map(String::trim).collect(Collectors.toList()));
+                reviewResponseDTO.setImages(review.getImages());
             }
             if (review.getUserId() != null) {
                 User reviewer = userMapper.selectById(review.getUserId());

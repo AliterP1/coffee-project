@@ -1,6 +1,8 @@
 package com.example.mycoffeedemo.dto;
 
 import lombok.Data;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,5 +16,6 @@ public class ReviewResponseDTO {
     private String comment;
     private List<String> images;
     private String avatarUrl;
+    private LocalDateTime createdAt;
 }
 

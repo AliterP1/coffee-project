@@ -15,7 +15,7 @@ class MyCoffeeDemoApplicationTests {
     void contextLoads() {
         User user = new User();
         user.setId(1L);
-        user.setUsername("罗佳俊");
+        user.setUsername("Ming");
         user.setPassword("123456");
         user.setPhone("18281190805");
 //        System.out.println(redisTemplate.opsForValue().get("name"));

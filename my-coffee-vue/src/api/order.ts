@@ -4,8 +4,8 @@ import type  { ApiResponse } from '@/api/page'
 
 
 export interface CreateOrderRequestDTO{
-     userId: number
-    addressId: number
+  userId: number
+  addressId: number
   items: CreateOrderRequestDTO.OrderItemDTO[]
 }
 
@@ -30,9 +30,10 @@ export interface Order {
 export interface OrderResponseDTO {
   id: number
   userId: number
-  addressId: number
+  fullAddress: string
   totalPrice: number
   status: string
+  createdAt: string
   expireTime: string
   updatedAt: string
   items: OrderResponseDTO.OrderItemDTO[]
@@ -68,7 +69,7 @@ export const createOrder = (data: CreateOrderRequestDTO) =>
 
 // 取消订单
 export const cancelOrder = (orderId: number) =>
-  request.post<Order>(`/order/${orderId}/cancel`)
+  request.post<ApiResponse<Order>>(`/order/${orderId}/cancel`)
 
 // 获取用户订单列表
 export const getUserOrders = (page = 1, size = 5, userId: number) =>
@@ -80,3 +81,18 @@ export const getOrderDetails = (orderId: number) =>
     params: { orderId } 
   })
 
+// 获取所有订单
+export const getAllOrder = (page = 1, size = 10) =>
+  postPage<OrderResponseDTO>('order/allOrder', undefined, { params: { page, size } })
+
+// 获取商家订单
+export const getMerchantOrder = (page = 1, size = 10, userId: number) =>
+  postPage<OrderResponseDTO>('order/merchantOrder', undefined, { params: { page, size, userId } })
+
+// 更新订单状态
+export const updateOrderStatus = (orderId: number, status: string) =>
+  request.put<ApiResponse<Order>>(`/order/${orderId}/status`, null, { params: { status } })
+
+// 商家发货
+export const shipMerchantOrder = (merchantOrderId: number) =>
+  request.post<ApiResponse<string>>(`/order/${merchantOrderId}/ship`)

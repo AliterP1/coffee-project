@@ -3,6 +3,7 @@ package com.example.mycoffeedemo.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mycoffeedemo.annotation.RequireOwner;
+import com.example.mycoffeedemo.dto.OrderResponseDTO;
 import com.example.mycoffeedemo.dto.UserRequestDTO;
 import com.example.mycoffeedemo.dto.UserResponseDTO;
 import com.example.mycoffeedemo.entity.User;
@@ -21,9 +22,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public IPage<User> getUser(@RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "10") int size){
-        return userService.page(new Page<>(page,size));
+    public Result<IPage<UserResponseDTO>> getUser(@RequestParam(defaultValue = "1") int page,
+                                                   @RequestParam(defaultValue = "10") int size){
+        return userService.getAllUser(page,size);
     }
 
     @GetMapping("/{id}")
@@ -66,4 +67,50 @@ public class UserController {
     public Result<String> updateAvatar(@PathVariable Long id, @RequestParam("file") MultipartFile file){
         return userService.updateAvatar(id,file);
     }
+
+    //更新用户基本信息
+    @RequireOwner(resource = "user", idArg = "id", allowRoles = {"admin"})
+    @PutMapping("/{id}")
+    public Result<UserResponseDTO> updateUser(@PathVariable Long id,
+                                              @RequestBody UserRequestDTO dto) {
+        return userService.updateUser(id, dto);
+    }
+
+    /**
+     * 管理员重置用户密码
+     * 重置为：邮箱 + 123
+     */
+    @RequireOwner(resource = "user", idArg = "userId", allowRoles = {"admin"})
+    @PutMapping("/{userId}/reset-password")
+    public Result<String> resetPassword(@RequestParam Long userId){
+        return userService.resetPassword(userId);
+    }
+
+    /**
+     * 管理员新增用户
+     */
+    @RequireOwner( resource = "user",
+            idArg = "id",
+            allowRoles = {"admin"})
+    @PostMapping
+    public Result<UserResponseDTO> addUser(@RequestBody UserRequestDTO dto) {
+        return userService.addUser(dto);
+    }
+
+    /**
+     * 获取手机发送验证码
+     */
+    @GetMapping("/code")
+    public Result<String> codePhone(String phone) {
+        return userService.codePhone(phone);
+    }
+
+    /**
+     * 获取手机发送验证码
+     */
+    @PostMapping("/phoneLogin")
+    public Result<UserResponseDTO> phoneLogin(String phone,String code) {
+        return userService.phoneLogin(phone,code);
+    }
+
 }

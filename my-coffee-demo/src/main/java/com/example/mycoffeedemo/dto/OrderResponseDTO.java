@@ -11,8 +11,12 @@ import java.util.List;
 public class OrderResponseDTO {
     private Long id;
     private Long userId;
+    private Long addressId;
     private BigDecimal totalPrice;
     private String status;
+    private String image;
+    private String fullAddress;
+    private LocalDateTime createdAt;
     private LocalDateTime expireTime;
     private List<OrderItemResponseDTO> items;
     private List<AddressResponseDTO> address;
@@ -20,6 +24,8 @@ public class OrderResponseDTO {
     @Data
     public static class OrderItemResponseDTO {
         private Long productId;
+        private Long merchantOrderId;
+        private String status;
         private Integer quantity;
         private BigDecimal price;
         private String productName;

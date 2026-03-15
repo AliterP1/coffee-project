@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { getPage } from '@/api/page'
 
 // 通用API响应包装类型
 export interface ApiResponse<T> {
@@ -9,10 +10,12 @@ export interface ApiResponse<T> {
 
 export interface UserRequestDTO {
   username?: string
-  password: string
-  email: string
+  password?: string
+  email?: string
   phone?: string
   avatarUrl?: string
+  role?: string
+  status?: string
 }
 
 export interface UserResponseDTO {
@@ -41,7 +44,7 @@ export const getUserById = (id: string) =>
 
 // 获取用户分页
 export const getUserPage = (page = 1, size = 10) =>
-  request.get<ApiResponse<any>>(`/user`, { params: { page, size } })
+  getPage<UserResponseDTO>(`/user`, { page, size })
 
 // 修改密码
 export const changePassword = (userId: number, oldPassword: string, newPassword: string) =>
@@ -59,3 +62,14 @@ export const updateAvatar = (id: number, file: File) => {
     headers: { 'Content-Type': 'multipart/form-data' },
   })
 }
+
+// 更新用户基本信息（admin 权限）
+export const updateUser = (id: number, data: Partial<UserRequestDTO>) =>
+  request.put<ApiResponse<UserResponseDTO>>(`/user/${id}`, data)
+
+// 重置用户密码（admin 权限）
+export const resetPassword = (userId: number) =>
+  request.put<ApiResponse<string>>(`/user/${userId}/reset-password`, null, { params: { userId } })
+
+export const addUser= (data: UserRequestDTO) =>
+  request.post<ApiResponse<UserResponseDTO>>(`/user`, data)

@@ -209,8 +209,8 @@ const formatDate = (date?: string) => {
 const getStatusText = (status: string) => {
   const statusMap: Record<string, string> = {
     'pending': '待付款',
-    'shipping': '待发货',
-    'delivered': '待收货',
+    'paid': '待发货',
+    'shipped': '待收货',
     'completed': '已完成',
     'cancelled': '已取消',
     'expired':'超时'

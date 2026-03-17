@@ -10,21 +10,17 @@ import com.example.mycoffeedemo.entity.Product;
 import com.example.mycoffeedemo.entity.User;
 import com.example.mycoffeedemo.mapper.ProductMapper;
 import com.example.mycoffeedemo.mapper.UserMapper;
-import com.example.mycoffeedemo.service.FileService;
+import com.example.mycoffeedemo.utils.FileService;
 import com.example.mycoffeedemo.service.ProductService;
-import com.example.mycoffeedemo.service.UserService;
 import com.example.mycoffeedemo.utils.Result;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>implements ProductService {

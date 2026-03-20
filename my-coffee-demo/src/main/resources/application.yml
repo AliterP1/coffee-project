@@ -25,9 +25,9 @@ spring:
 #          - 192.168.223.131:7005
 #          - 192.168.223.131:7006
       database: 0
-      host: 8.130.85.165
+      host: 
       port: 6379
-      password: 520814
+      password: 
 
 server:
   port: 8081
